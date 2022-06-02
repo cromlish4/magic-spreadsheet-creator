@@ -39,7 +39,20 @@ ws.col(3).width = col_width
 ws.col(4).width = col_width
 ws.col(5).width = col_width
 
-f = open(input("Collection Filename: "), "r")
+while True:
+    filename = input("Collection Filename: ")
+    loc = filename.find(".txt")
+    if loc < 0:
+        spreadsheet_name = filename
+        filename = filename+".txt"
+    else:
+        spreadsheet_name = filename[0:loc]
+    try:
+        f = open(filename, "r")
+    except:
+        print("Error opening file, please try again.")
+    else:
+        break
 
 ws.write(0, 0, "Card Name")
 ws.write(0, 1, "Card Type")
@@ -57,10 +70,13 @@ while card_read_name != "":
     card_read_name = card_read_name.strip()
     card = bw.search_by_name(card_file,card_read_name)
     card_name = bw.name(card)
+    if card_name == None:
+        card_name = card_read_name
+
     try:
-        cards_processed[bw.name(card)]
+        cards_processed[card_name]
     except:
-        cards_processed = {bw.name(card):1}
+        cards_processed = {card_name:1}
         ws.write(i, 0, card_name)
         ws.write(i, 1, bw.card_type(card))
         ws.write(i, 2, bw.oracle_text(card))
@@ -70,9 +86,10 @@ while card_read_name != "":
         ws.write(i, 5, bw.price(card))
         i+=1
     else:
-        count = cards_processed[bw.name(card)]
-        cards_processed = {bw.name(card):count+1}
+        count = cards_processed[card_name]
+        cards_processed = {card_name:count+1}
         ws.write(count_loc[card_name], 3, cards_processed[card_name])
     card_read_name = f.readline()    
-wb.save(input("Spreadsheet Name: ")+'.xls')
+#wb.save(input("Spreadsheet Name: ")+'.xls')
+wb.save(spreadsheet_name+'.xls')
 f.close()

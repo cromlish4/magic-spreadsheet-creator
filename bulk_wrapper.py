@@ -21,7 +21,8 @@ def name(card):
     try:
         return card["name"]
     except:
-        return "Card Not Found"
+        #return "Card Not Found"
+        return None
 
 def price(card):
     try:

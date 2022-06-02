@@ -25,8 +25,9 @@ while cont:
     if userIn == 'q':
         break
     card = bw.search_by_name(card_file,userIn)
-    print("Card: \""+bw.name(card)+"\"")
-    print("Card Type: "+bw.card_type(card))
-    print("Oracle Text: "+bw.oracle_text(card))
-    print("Release Date: "+bw.released_date(card))
-    print("Price USD: "+bw.price(card))
+    print(card)
+    # print("Card: \""+bw.name(card)+"\"")
+    # print("Card Type: "+bw.card_type(card))
+    # print("Oracle Text: "+bw.oracle_text(card))
+    # print("Release Date: "+bw.released_date(card))
+    # print("Price USD: "+bw.price(card))
